@@ -15,11 +15,13 @@ export const UserProvider =  ({ children }) => {
 
     const signUp = async (email, password) => {
         try {
-            await createUserWithEmailAndPassword(
+            const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 email,
                 password
             )
+            const newUser = userCredential.user;
+            return newUser;
         } catch (error) {
             console.error("Sign Up Error:", error.message);
         }
