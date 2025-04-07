@@ -3,7 +3,7 @@ import { useUserAuth } from "./_utils/auth-context";
 import { useState } from "react";
 
 export default function Home() {
-  const { user, signUp, logout, signIn } = useUserAuth();
+  const { signUp, logout, signIn } = useUserAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
