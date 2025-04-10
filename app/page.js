@@ -2,27 +2,34 @@
 import { useUserAuth } from "./_utils/auth-context";
 import { useState } from "react";
 import { newUser } from "./_services/account-services";
+import { useRouter } from "next/navigation";
 
 export default function Home() {
-  const { signUp, logout, signIn } = useUserAuth();
-
+  const { user, signUp, signIn } = useUserAuth();
+  const router = useRouter();
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [toggleRegister, setToggleRegister] = useState(false);
+  const [created, setCreated] = useState(false);
 
   const handleSignUp = async (event) => {
     event.preventDefault();
     const registeredUser = await signUp(email, password);
     if (registeredUser) {
       await newUser(registeredUser.uid, username);
+      setCreated(true);
+      setTimeout(() => {
+        setCreated(false);
+      }, 5000)
     }
   }
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    const currentUser = await signIn(email, password);
-    if (currentUser) {
+    await signIn(email, password);
+    if (user) {
+      router.push('/search');
     }
   }
 
@@ -32,10 +39,6 @@ export default function Home() {
     if (toggleRegister == true) {
       setUsername("");
     }
-  }
-
-  const handleLogout = async () => {
-    await logout();
   }
 
   return (
@@ -69,23 +72,24 @@ export default function Home() {
           <div className="flex space-x-4 pt-2">
           {toggleRegister ? 
             <button
-              className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer"
               onClick={handleSignUp}>
               Sign Up
             </button> 
             :
             <button
-              className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+              className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer"
               onClick={handleSignIn}>
               Sign In
             </button>
           }
             <button
-              className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap"
+              className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap cursor-pointer"
               onClick={handleToggle}>
               {toggleRegister ? <div>Sign In</div> : <div>Register</div>}
             </button>
           </div>
+          {toggleRegister && created && (<div className="text-red-500 text-xs text-center">Account Registered Successfully</div>)}
         </form>
       </div>
     </main>
