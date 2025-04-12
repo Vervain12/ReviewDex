@@ -6,10 +6,16 @@ import { newReview } from "../_services/review-services";
 export default function CreateReview({id, user}) {
     const [text, setText] = useState("");
     const [rating, setRating] = useState(3);
+    const [loggedIn, setLoggedIn] = useState(true);
     
     const handleNewReview = async (event) => {
         event.preventDefault();
-        await newReview(id, rating, text, user);
+        setLoggedIn(true);
+        if (user){
+            await newReview(id, rating, text, user);        
+        } else {
+            setLoggedIn(false);
+        }
     } 
 
     return(
@@ -33,14 +39,15 @@ export default function CreateReview({id, user}) {
                         onChange={(event) => setRating(event.target.value)}
                     />
                 </div>
-                <div className="flex justify-center">
+                <div className="flex flex-col justify-center">
                     <button
                         type="submit"
                         className="align-middle w-25 bg-blue-500 text-white p-2 rounded hover:bg-blue-600 cursor-pointer"
                         onClick={handleNewReview}
                     >
                         Submit Review
-                    </button>                    
+                    </button>   
+                    {loggedIn ? <></> : <div className="text-red-500 font-medium">You must be logged in to post a review.</div>}                 
                 </div>
             </form>
         </div>
