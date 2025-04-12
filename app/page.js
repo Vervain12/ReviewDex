@@ -1,6 +1,6 @@
 "use client";
 import { useUserAuth } from "./_utils/auth-context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { newUser } from "./_services/account-services";
 import { useRouter } from "next/navigation";
 
@@ -28,10 +28,13 @@ export default function Home() {
   const handleSignIn = async (event) => {
     event.preventDefault();
     await signIn(email, password);
-    if (user) {
-      router.push('/search');
-    }
   }
+
+  useEffect(() => {
+    if (user) {
+      router.push('/search');    
+    }
+  },[user])
 
   const handleToggle = async (event) => {
     event.preventDefault();
