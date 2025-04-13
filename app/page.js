@@ -54,6 +54,7 @@ export default function Home() {
               className="w-full p-2 border border-gray-500 rounded text-black"
               type="username"
               placeholder="Username"
+              autoComplete="off"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
               /> : <></>
@@ -62,6 +63,7 @@ export default function Home() {
             className="w-full p-2 border border-gray-500 rounded text-black"
             type="email"
             placeholder="Email"
+            autoComplete="off"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
           />
@@ -69,6 +71,7 @@ export default function Home() {
             className="w-full p-2 border border-gray-500 rounded text-black"
             type="password"
             placeholder="Password"
+            autoComplete="off"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
           />

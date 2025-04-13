@@ -13,7 +13,6 @@ import Link from "next/link";
 export default function Series(){
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [showReviewCreate, setShowReviewCreate] = useState(false);
     const { user } = useUserAuth();
     const params = useParams();
 
@@ -31,10 +30,6 @@ export default function Series(){
 
         fetchSeriesData();
     },[params.id])
-
-    const handleShowReviewCreate = () => {
-        setShowReviewCreate(!showReviewCreate);
-    }
 
     return (
         <div>
