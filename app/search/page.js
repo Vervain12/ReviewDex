@@ -2,7 +2,7 @@
 
 import Header from "../components/header"
 import { useState } from "react"
-import { searchManga } from "./search-series";
+import { searchManga } from "../_services/search-series";
 import { SearchResults } from "./search-results";
 
 export default function Search() {

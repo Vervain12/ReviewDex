@@ -2,7 +2,7 @@ import { db } from "../_utils/firebase";
 import { collection, getDocs, addDoc, setDoc, deleteDoc, docRef, query, where, orderBy, doc, serverTimestamp } from "firebase/firestore";
 import { getUserInfo } from "./account-services";
 
-export const newReview = async (id, rating, text, user) => {
+export const newReview = async (id, rating, title, text, user) => {
 
     try {
         const userDoc = await getUserInfo(user.uid);
@@ -16,6 +16,7 @@ export const newReview = async (id, rating, text, user) => {
             userId: user.uid,
             username: username,
             rating: rating,
+            title: title,
             text: text,
             createdTime: serverTimestamp()
         });

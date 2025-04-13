@@ -46,7 +46,7 @@ export default function Home() {
 
   return (
     <main className="flex justify-center items-center min-h-screen">
-      <div className="p-8 bg-white shadow-md rounded-md w-80">
+      <div className="p-8 bg-white shadow-md rounded-md w-110">
         <h1 className="text-black font-bold p-2 text-center text-xl mb-4 font-mono">ReviewDex</h1>        
         <form className="space-y-4">
           {toggleRegister ?
@@ -90,6 +90,11 @@ export default function Home() {
               className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap cursor-pointer"
               onClick={handleToggle}>
               {toggleRegister ? <div>Sign In</div> : <div>Register</div>}
+            </button>
+            <button
+              className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap cursor-pointer"
+              onClick={() => {router.push('/search')}}>
+              Continue as Guest
             </button>
           </div>
           {toggleRegister && created && (<div className="text-red-500 text-xs text-center">Account Registered Successfully</div>)}
