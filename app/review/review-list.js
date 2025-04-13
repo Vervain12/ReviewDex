@@ -20,7 +20,7 @@ export default function ReviewList({id}) {
         }
 
         fetchReviews();
-    },[reviews])
+    },[])
 
 
     return (
