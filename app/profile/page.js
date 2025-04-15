@@ -10,8 +10,8 @@ export default function Profile() {
     const router = useRouter();
 
     const handleLogout = () => {
-        router.push('/');
         logout();
+        router.push('/');
     }
 
     return(
