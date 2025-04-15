@@ -51,7 +51,7 @@ const PfpList = () => {
                 Profile Picture:
             </div>
             <button onClick={handleToggleSelect} className="border-blue-500 border-2 cursor-pointer">
-                <img width={150} height={150} src={`/pfpOptions/${currentPfp}`} alt={`Profile Picture of ${user.displayName}`}/>
+                <img key={currentPfp} width={150} height={150} src={`/pfpOptions/${currentPfp}`} alt={`Profile Picture of ${user.displayName}`}/>
             </button>
             {toggleSelect ? <></> : 
             <div>
