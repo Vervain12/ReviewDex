@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react"
 import { getReviews } from "../_services/review-services";
 
-export default function ReviewList({id}) {
+export default function ReviewList({id, refreshReviews}) {
     const [reviews, setReviews] = useState([]);
     const [loading, setLoading] = useState(true);
     
@@ -20,7 +20,7 @@ export default function ReviewList({id}) {
         }
 
         fetchReviews();
-    },[])
+    },[refreshReviews])
 
 
     return (

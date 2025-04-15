@@ -13,8 +13,13 @@ import Link from "next/link";
 export default function Series(){
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [refreshReviews, setRefreshReviews] = useState(true);
     const { user } = useUserAuth();
     const params = useParams();
+
+    const handleRefresh = () => {
+        setRefreshReviews(!refreshReviews);
+    }
 
     useEffect(() => {
         async function fetchSeriesData() {
@@ -56,7 +61,7 @@ export default function Series(){
                             </h1>
                             <div className="border-2 border-blue-500 font-mono p-4 rounded-md bg-gray-50">
                                 <h2 className="text-xl mb-2 text-black font-semibold">Synopsis</h2>
-                                <p className="text-gray-800 mb-4 overflow-auto">
+                                <p className="text-gray-800 mb-4 overflow-auto h-100">
                                     {data.synopsis}
                                 </p>
                                 <Link 
@@ -67,9 +72,9 @@ export default function Series(){
                                     View on MyAnimeList
                                 </Link>
                             </div>
-                            <CreateReview id={params.id} user={user}/>
+                            <CreateReview id={params.id} user={user} handleRefreshReviews={handleRefresh}/>
                         </div>
-                        <ReviewList id={params.id}/>
+                        <ReviewList id={params.id} refreshReviews={refreshReviews}/>
                     </div>
             </div>
             }

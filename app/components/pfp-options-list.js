@@ -2,9 +2,6 @@
 // Either fetch each option from imgur or store each locally
 import { useState, useEffect } from "react";
 import { useUserAuth } from "../_utils/auth-context";
-import { getAuth } from "firebase/auth";
-import { useRouter } from "next/navigation";
-
 
 const PfpList = () => {
     const [pfpOptions, setPfpOptions] = useState([]);
