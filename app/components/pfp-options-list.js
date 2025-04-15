@@ -11,8 +11,7 @@ const PfpList = () => {
     const [loading, setLoading] = useState(true);
     const [toggleSelect, setToggleSelect] = useState(true);
     const { user, changeProfilePicture } = useUserAuth();
-    const currentPfp = user?.photoURL;
-    const router = useRouter();
+    const [currentPfp, setCurrentPfp] = useState(user?.photoURL);
 
     useEffect(() => {
         async function fetchPfpOptions() {
@@ -37,11 +36,7 @@ const PfpList = () => {
     const handleSelectPfp = async (image) => {
         await changeProfilePicture(image);
         handleToggleSelect();
-
-        // Reloading page
-        setTimeout(() => {
-            router.push('/profile');
-        }, 300);
+        setCurrentPfp(image);
     }
 
     return (
