@@ -20,8 +20,7 @@ export default function ReviewList({id, refreshReviews}) {
         }
 
         fetchReviews();
-    },[refreshReviews])
-
+    },[refreshReviews]);
 
     return (
         <div>

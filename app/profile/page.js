@@ -11,7 +11,9 @@ export default function Profile() {
 
     const handleLogout = () => {
         logout();
-        router.push('/');
+        setTimeout(() => {
+            router.push('/');
+        }, 100);
     }
 
     return(
