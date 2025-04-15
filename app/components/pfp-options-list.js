@@ -5,14 +5,13 @@ import { useUserAuth } from "../_utils/auth-context";
 import { getAuth } from "firebase/auth";
 import { useRouter } from "next/navigation";
 
+
 const PfpList = () => {
     const [pfpOptions, setPfpOptions] = useState([]);
     const [loading, setLoading] = useState(true);
     const [toggleSelect, setToggleSelect] = useState(true);
-    const auth = getAuth();
-    const user = auth.currentUser;
-    const currentPfp = user.photoURL;
-    const { changeProfilePicture } = useUserAuth();
+    const { user, changeProfilePicture } = useUserAuth();
+    const currentPfp = user?.photoURL;
     const router = useRouter();
 
     useEffect(() => {
