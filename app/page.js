@@ -1,7 +1,6 @@
 "use client";
 import { useUserAuth } from "./_utils/auth-context";
 import { useState, useEffect } from "react";
-import { newUser } from "./_services/account-services";
 import { useRouter } from "next/navigation";
 
 export default function Home() {
@@ -15,9 +14,8 @@ export default function Home() {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const registeredUser = await signUp(email, password);
+    const registeredUser = await signUp(email, password, username);
     if (registeredUser) {
-      await newUser(registeredUser.uid, username);
       setCreated(true);
       setTimeout(() => {
         setCreated(false);
@@ -32,7 +30,9 @@ export default function Home() {
 
   useEffect(() => {
     if (user) {
-      router.push('/search');    
+      setTimeout(() => {
+        router.push('/search');  
+      }, 300);
     }
   },[user])
 
@@ -100,7 +100,7 @@ export default function Home() {
               Continue as Guest
             </button>
           </div>
-          {toggleRegister && created && (<div className="text-red-500 text-xs text-center">Account Registered Successfully</div>)}
+          {created && (<div className="text-red-500 text-xs text-center">Account Registered Successfully</div>)}
         </form>
       </div>
     </main>

@@ -13,7 +13,7 @@ export default function CreateReview({id, user}) {
         event.preventDefault();
         setLoggedIn(true);
         if (user){
-            await newReview(id, rating, title, text, user);        
+            await newReview(id, rating, title, text);        
         } else {
             setLoggedIn(false);
         }

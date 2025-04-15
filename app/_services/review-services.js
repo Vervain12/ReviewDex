@@ -1,12 +1,14 @@
 import { db } from "../_utils/firebase";
 import { collection, getDocs, addDoc, setDoc, deleteDoc, docRef, query, where, orderBy, doc, serverTimestamp } from "firebase/firestore";
-import { getUserInfo } from "./account-services";
+import { getAuth } from "firebase/auth";
 
-export const newReview = async (id, rating, title, text, user) => {
+export const newReview = async (id, rating, title, text) => {
+    const auth = getAuth();
+    const user = auth.currentUser;
+    const username = user.displayName;
+    const currentPfp = user.photoURL;
 
     try {
-        const userDoc = await getUserInfo(user.uid);
-        const username = userDoc.data().name;
 
         const reviewRef = doc(collection(db, "reviews"));
 
@@ -14,6 +16,7 @@ export const newReview = async (id, rating, title, text, user) => {
             reviewId: reviewRef.id,
             seriesId: id,
             userId: user.uid,
+            image: currentPfp,
             username: username,
             rating: rating,
             title: title,

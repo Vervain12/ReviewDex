@@ -1,4 +1,4 @@
-import { db } from "../_utils/firebase";
+/*import { db } from "../_utils/firebase";
 import { collection, getDoc, addDoc, setDoc, deleteDoc, docRef, query, doc } from "firebase/firestore";
 
 export const newUser = async (userId, username) => {
@@ -22,3 +22,5 @@ export const getUserInfo = async (userId) => {
         console.error(e);
     }
 }
+
+This file is useless; Firebase can store usernames within auth.currentuser*/

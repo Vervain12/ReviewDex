@@ -38,10 +38,16 @@ export default function ReviewList({id}) {
                         <ul className="space-y-6 h-150 w-100 overflow-y-auto">
                             {reviews.map(item => (
                                 <li key={item.reviewId}  className="bg-white  w-full border-blue-500 border-2 shadow-md overflow-y-auto">
-                                    <div className="flex flex-col justify-center font-mono">
-                                        <h2 className="text-black font-semibold text-xl">{item.title}</h2>
-                                        <div className="text-black">User: {item.username}</div>
-                                        <div className="text-black">Rating: {item.rating} / 10</div>
+                                    <div className="flex flex-col justify-center font-mono text-black">
+                                        <div className="flex flex-row space-x-2">
+                                            <img width={100} height={100}src={`/pfpOptions/${item.image}`} alt={`Profile Picture of ${item.username}`}
+                                                className="border border-black"/>
+                                            <div className="flex flex-col">
+                                                <h2 className="text-black font-semibold text-xl">{item.title}</h2>
+                                                <div className="text-black">User: {item.username}</div>
+                                                <div className="text-black">Rating: {item.rating} / 10</div>                                                    
+                                            </div>
+                                        </div>
                                         <div className="flex flex-col w-full h-50 border-t-2 border-t-blue-500 p-2 text-black">
                                             <div>{item.text}</div>
                                         </div>
