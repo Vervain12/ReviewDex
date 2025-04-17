@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { newReview } from "../_services/review-services";
 
-export default function CreateReview({id, user, handleRefreshReviews}) {
+export default function CreateReview({id, user, seriesName, handleRefreshReviews}) {
     const [text, setText] = useState("");
     const [title, setTitle] = useState("");
     const [rating, setRating] = useState(5);
@@ -13,7 +13,7 @@ export default function CreateReview({id, user, handleRefreshReviews}) {
         event.preventDefault();
         setLoggedIn(true);
         if (user){
-            await newReview(id, rating, title, text);    
+            await newReview(id, rating, title, seriesName, text);    
             handleRefreshReviews();    
         } else {
             setLoggedIn(false);

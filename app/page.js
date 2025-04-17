@@ -2,6 +2,7 @@
 import { useUserAuth } from "./_utils/auth-context";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { updateProfile } from 'firebase/auth';
 
 export default function Home() {
   const { user, signUp, signIn } = useUserAuth();
@@ -93,11 +94,6 @@ export default function Home() {
               className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap cursor-pointer"
               onClick={handleToggle}>
               {toggleRegister ? <div>Sign In</div> : <div>Register</div>}
-            </button>
-            <button
-              className="flex-1 bg-gray-500 text-white p-2 rounded hover:bg-gray-600 whitespace-nowrap cursor-pointer"
-              onClick={() => {router.push('/search')}}>
-              Continue as Guest
             </button>
           </div>
           {created && (<div className="text-red-500 text-xs text-center">Account Registered Successfully</div>)}

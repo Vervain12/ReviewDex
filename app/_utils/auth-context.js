@@ -15,6 +15,22 @@ const UserContext = createContext();
 export const UserProvider =  ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [pfpOptions, setPfpOptions] = useState([]);
+
+    // Should be a component since this block is used multiple times
+    useEffect(() => {
+      async function fetchPfpOptions() {
+        try {
+        const response = await fetch('/api/pfp-options');
+        const data = await response.json();
+        setPfpOptions(data);
+        } catch (error) {
+        console.error('Error fetching profile picture options:', error);
+        }
+      }
+      
+      fetchPfpOptions();
+    }, []);
 
     useEffect(() => {
         const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -56,7 +72,7 @@ export const UserProvider =  ({ children }) => {
 
     const signUp = async (email, password, username) => {
         try {
-
+            const image = pfpOptions[0];
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
                 email,
@@ -65,7 +81,7 @@ export const UserProvider =  ({ children }) => {
             const newUser = userCredential.user;
             updateProfile(auth.currentUser, {
                 displayName: username,
-                // photoUrl should link to a basic preset pfp here
+                photoURL: image
             })
 
             return newUser;

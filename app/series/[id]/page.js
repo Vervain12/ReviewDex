@@ -72,7 +72,7 @@ export default function Series(){
                                     View on MyAnimeList
                                 </Link>
                             </div>
-                            <CreateReview id={params.id} user={user} handleRefreshReviews={handleRefresh}/>
+                            <CreateReview id={params.id} user={user} seriesName={data.titles[0].title} handleRefreshReviews={handleRefresh}/>
                         </div>
                         <ReviewList id={params.id} refreshReviews={refreshReviews}/>
                     </div>
