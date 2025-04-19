@@ -1,5 +1,5 @@
 import { db } from "../_utils/firebase";
-import { collection, getDocs, addDoc, setDoc, deleteDoc, docRef, query, where, orderBy, doc, serverTimestamp } from "firebase/firestore";
+import { collection, getDocs, addDoc, sum, setDoc, getCountFromServer, deleteDoc, getAggregateFromServer, docRef, query, where, orderBy, doc, serverTimestamp, getDoc } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { useState } from "react";
 
@@ -12,6 +12,7 @@ export const newReview = async (id, rating, title, seriesName, text) => {
     try {
 
         const reviewRef = doc(collection(db, "reviews"));
+        const numericRating = parseInt(rating, 10);
 
         await setDoc(reviewRef, {
             reviewId: reviewRef.id,
@@ -20,7 +21,7 @@ export const newReview = async (id, rating, title, seriesName, text) => {
             image: currentPfp,
             seriesName : seriesName,
             username: username,
-            rating: rating,
+            rating: numericRating,
             title: title,
             text: text,
             createdTime: serverTimestamp()
@@ -66,8 +67,31 @@ export const getReviews = async (id) => {
 
 export const deleteReview = async (id) => {
     try {
-
         await deleteDoc(doc(db, "reviews", id));
+    }
+    catch(e){
+        console.error(e);
+    }
+}
+
+export const getAverageRating = async (id) => {
+    try {
+        let q;
+        q = query(
+            collection(db, "reviews"),
+            where("seriesId", "==", id)
+        );
+
+        const countSnapshot = await getCountFromServer(q);
+        let count = countSnapshot.data().count;
+        let total = 0;
+        const reviewSnapshot = await getDocs(q);
+        reviewSnapshot.forEach((doc) => {
+            total += doc.data().rating;
+        });
+        let average = total / count;
+
+        return Math.round(average * 100) / 100;
     }
     catch(e){
         console.error(e);

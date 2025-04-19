@@ -9,11 +9,13 @@ import ReviewList from "@/app/review/review-list";
 import { useUserAuth } from "@/app/_utils/auth-context";
 import Image from "next/image"
 import Link from "next/link";
+import { getAverageRating } from "@/app/_services/review-services";
 
 export default function Series(){
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const [refreshReviews, setRefreshReviews] = useState(true);
+    const [averageRating, setAverageRating] = useState(0);
     const { user } = useUserAuth();
     const params = useParams();
 
@@ -28,13 +30,28 @@ export default function Series(){
                 setData(result);
                 setLoading(false);
             } catch (e) {
-                console.error("Failed to load: ", err);
+                console.error("Failed to load: ", e);
                 setLoading(false);
             }
         }
 
         fetchSeriesData();
     },[params.id])
+
+    useEffect(() => {
+
+        async function loadAverage() {
+            try {
+                const rating = await getAverageRating(params.id);
+                setAverageRating(rating || 0);
+            }
+            catch (e){
+                console.error("Failed to load rating: ", e);
+            }
+        }
+
+        loadAverage();
+    },[params.id, refreshReviews])
 
     return (
         <div>
@@ -58,6 +75,7 @@ export default function Series(){
                         <div className="flex flex-col gap-4 max-w-2xl">
                             <h1 className="text-3xl font-mono font-bold">
                                 {data.titles[0].title}    
+                                <p className="text-xl">Average Rating: {averageRating}</p>
                             </h1>
                             <div className="border-2 border-blue-500 font-mono p-4 rounded-md bg-gray-50">
                                 <h2 className="text-xl mb-2 text-black font-semibold">Synopsis</h2>
