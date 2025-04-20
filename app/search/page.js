@@ -17,7 +17,7 @@ export default function Search() {
     }
 
     return (
-        <main className="min-h-screen">
+        <main className="min-h-screen bg-black">
             <Header/>
             <div className="flex flex-row space-x-1 items-center justify-center pt-10">
                 <form>

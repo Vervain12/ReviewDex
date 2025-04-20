@@ -54,7 +54,7 @@ export default function Series(){
     },[params.id, refreshReviews])
 
     return (
-        <div>
+        <div className="bg-black">
             <Header/>
             {loading? 
             <div>

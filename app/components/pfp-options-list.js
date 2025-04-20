@@ -38,9 +38,6 @@ const PfpList = () => {
 
     return (
         <div className="font-mono">
-            <div>
-                Profile Picture:
-            </div>
             <button onClick={handleToggleSelect} className="border-blue-500 border-2 cursor-pointer">
                 <img key={currentPfp} width={150} height={150} src={`/pfpOptions/${currentPfp}`} alt={`Profile Picture of ${user.displayName}`}/>
             </button>

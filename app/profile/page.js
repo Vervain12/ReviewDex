@@ -23,19 +23,33 @@ export default function Profile() {
         }, 100);
     }
 
-    return(
-        <div className="font-mono">
-            <Header/>
-            {/*To avoid Error: user is null*/}
-            {user ? 
-            <div>
-                <PfpList/> 
-                <ReviewList id={user.uid} refreshReviews={handleRefresh}/>
-                <button onClick={handleLogout}>Logout</button>
-            </div> 
-            : 
-            <></>}
-            
+    return (
+        <div className="font-mono min-h-screen bg-black">
+          <Header />
+          {user ? (
+            <div className="flex justify-center items-center h-full">
+              <div className="flex flex-col md:flex-row max-w-6xl mx-auto">
+                <div className="w-full md:w-1/2 p-6 rounded-lg flex justify-end pr-20">
+                  <div className="md:max-w-xs">
+                    <h2 className="text-2xl font-semibold mb-4 text-white">{user.displayName}</h2>
+                    <PfpList />
+                    <button
+                      className="mt-6 px-4 py-2 border border-blue-500 text-white rounded hover:bg-opacity-10 transition-colors cursor-pointer"
+                      onClick={handleLogout}
+                    >
+                      Logout
+                    </button>
+                  </div>
+                </div>
+                
+                <div className="w-full md:w-1/2 p-6 rounded-lg pl-20">
+                  <ReviewList id={user.uid} refreshReviews={handleRefresh} />
+                </div>
+              </div>
+            </div>
+          ) : (
+            <></>
+          )}
         </div>
-    )
+      );
 }
